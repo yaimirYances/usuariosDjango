@@ -1,0 +1,15 @@
+------- CONFIGURANDO ENTORNO -------
+python -m venv "NOMBRE_DEL_ENTORNO"
+
+------- ACTIVANDO ENTORNO -------
+cd "NOMBRE_DEL_ENTORNO"
+
+
+------- CONFIGURANDO POSTGRESQL -------
+sudo apt-get install postgresql postgresql_contrib
+
+ENtrando a postgresql
+sudo su postgres
+createdb "NOMBRE_BASEDATOS"
+psql "NOMBRE_BASEDATOS"
+alter user "USUARIO" with password "PASSWORD"

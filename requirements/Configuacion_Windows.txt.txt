@@ -1,0 +1,25 @@
+------- CONFIGURANDO ENTORNO -------
+python -m venv "NOMBRE_DEL_ENTORNO"
+
+------- ACTIVANDO ENTORNO -------
+cd "NOMBRE_DEL_ENTORNO"
+cd Scripts
+active
+
+------- INSTALAR PAQUETES DESDE UN ARCHIVO -------
+pip install -r "DIRECCION_DEL_ARCHIVO"
+
+------- VERIFICAR PAQUETES INSTALADOS -------
+pip freze --local
+
+
+------- CONFIGURANDO POSTGRESQL -------
+abrimos SQL Shell
+-- creamos la base de datos --
+CREATE DATABASE "NOMBRE_BASEDATOS";
+-- creamos el usuario --
+CREATE USER"NOMBRE_USUARIO";
+-- Cambiamos a la base de datos creada --
+\c "NOMBRE_BASEDATOS"
+-- Dando permiso al usuario creado en la base de datos --
+ALTER ROLE yaimiryk WITH PASSWORD 'CLAVE_ASIGNADA';
