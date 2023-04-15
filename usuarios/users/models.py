@@ -18,7 +18,9 @@ class User(AbstractBaseUser,PermissionsMixin):
     nombres = models.CharField(max_length=50, blank=True)
     apellidos = models.CharField(max_length=50, blank=True)
     genero = models.CharField(max_length=1, choices=GENERO, blank=True)
+    codregistro =models.CharField(max_length=6, blank=True)
     is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     
     objects = UserManager()
     
@@ -29,5 +31,12 @@ class User(AbstractBaseUser,PermissionsMixin):
         return self.username
     
     def get_full_name(self):
-        return self.username
+        return self.nombres+" "+self.apellidos
+    
+    def __str__(self):
+        if self.is_active:
+            estado = "Activo"
+        else:
+            estado = "Desativado"
+        return self.username+" "+estado
     

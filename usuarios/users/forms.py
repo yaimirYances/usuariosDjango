@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate
 from .models import User
 
 class UserRegisterForm(forms.ModelForm):
-    
     password1 = forms.CharField(
         label="contraseña",
         required=True,
@@ -69,3 +68,43 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("Los datos de usuario no son correctos")
         
         return self.cleaned_data
+    
+class UpdatePasswordForm(forms.Form):
+    password1 = forms.CharField(
+        label="contraseña",
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder" : "Contraseña actual"
+            }
+        )
+    )
+    
+    password2 = forms.CharField(
+        label="contraseña",
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder" : "contraseña nueva"
+            }
+        )
+    )
+
+class VerificationCodeEmail(forms.Form):
+    codregistro = forms.CharField(required=True)
+    
+    def __init__(self, pk,  *args, **kwargs):
+        self.id_user = pk
+        super(VerificationCodeEmail, self).__init__(*args, **kwargs)
+    
+    def clean_codregistro(self):
+        codigo = self.cleaned_data["codregistro"]
+        if len(codigo) == 6:
+            activo = User.objects.cod_validation(
+                self.id_user,
+                codigo
+            )
+            if not activo:
+                raise forms.ValidationError("El codigo es incorrecto")
+        else:
+            raise forms.ValidationError("El codigo es incorrecto")
